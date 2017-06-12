@@ -33,6 +33,9 @@ Other observations:
 	Static Root:
 		STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
+		and run:
+		python manage.py collectstatic
+
 ============================================
 
 Useful tutorial guide:

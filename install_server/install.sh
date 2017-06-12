@@ -33,11 +33,33 @@ then
 
 fi
 
-# Getting Python and pip
+
+# Be able to use ppa in future on debian
+    sudo apt-get install equivs
+    sudo apt-get install software-properties-common
+
+# Getting Python and pip and gdal
     cd
     sudo apt-get update
+    sudo apt-get upgrade
     sudo apt-get install python3
     sudo apt-get install python3-pip
+    sudo apt install gdal-bin python-gdal python3-gdal
+
+    #gdal again
+    cd
+    wget http://download.osgeo.org/gdal/2.1.0/gdal-2.1.0.tar.gz
+    tar -xvf gdal-2.1.0.tar.gz
+    cd gdal-2.1.0/
+    ./configure --prefix=/usr/
+    make
+    sudo make install
+    cd swig/python/
+    sudo python setup.py install
+    cd
+    sudo rm -r gdal-2.1.0/
+    sudo rm gdal-2.1.0.tar.gz
+    
 
     # Virtual env. 
     sudo -H pip3 install --upgrade pip
@@ -67,7 +89,7 @@ fi
     # uswgi.service file 
     uwsgi_service_path="/etc/systemd/system/uwsgi.service"
     sudo sh -c -e "echo '[Unit] \nDescription=uWSGI Emperor service\n\n[Service]' > $uwsgi_service_path"
-    sudo sh -c -e "echo \"ExecStartPre=/bin/bash -c 'mkdir -p /run/uwsgi; chown $USER:www-data /run/uwsgi' \" >> $uwsgi_service_path"
+    sudo sh -c -e "echo \"ExecStartPre=/bin/bash -c 'mkdir -p /run/uwsgi; chown ${USER}:www-data /run/uwsgi' \" >> $uwsgi_service_path"
     sudo sh -c -e "echo 'ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites \nRestart=always' >> $uwsgi_service_path"
     sudo sh -c -e "echo 'KillSignal=SIGQUIT \nType=notify \nNotifyAccess=all\n' >> $uwsgi_service_path"
     sudo sh -c -e "echo '[Install] \nWantedBy=multi-user.target' >> $uwsgi_service_path"
@@ -83,7 +105,7 @@ fi
     sudo sh -c -e "echo '  location = /favicon.ico { access_log off; log_not_found off; }\n\n' >> $sites_available_path"
     sudo sh -c -e "echo '  location /static/ {\n    root ${HOME}/${PROJECT_NAME};\n  }\n' >> $sites_available_path"
     sudo sh -c -e "echo '  location / {\n    include         uwsgi_params;' >> $sites_available_path"
-    sudo sh -c -e "echo '    uwsgi_pass      unix:/run/uwsgi/$PROJECT_NAME$sock_ext;\n  }\n\n}' >> $sites_available_path"
+    sudo sh -c -e "echo '    uwsgi_pass      unix:/run/uwsgi/$PROJECT_NAME${sock_ext};\n  }\n\n}' >> $sites_available_path"
 
     sudo ln -s /etc/nginx/sites-available/$PROJECT_NAME /etc/nginx/sites-enabled
     sudo nginx -t
