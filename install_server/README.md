@@ -2,7 +2,7 @@
 ### Run the  script
 ```sh
 chmod u+x install.sh
-	./install.sh -n <PROJECT_NAME>
+./install.sh -n <PROJECT_NAME>
 ```
 
 Where _<project_name>_ should be the name of your project. This is needed in order to auto-generate uwsgi and nginx configuration files. You can edit them later as described below. If not inserted, it is auto-set for "_hexgis_project_" as name.
@@ -12,7 +12,7 @@ Where _<project_name>_ should be the name of your project. This is needed in ord
 
 First file created
 ```sh	
-/etc/nginx/sites-available/$PROJECT_NAME
+$PROJECT_NAME
 ```
 Edit this file to configurate root project and its _<project_name>.sock_. If creating a new file, make sure to create its link:
 ```sh
@@ -20,7 +20,7 @@ sudo ln -s <newfile_path> /etc/nginx/sites-enabled
 ```
 We also have virtual env configuration, where the configured virtualenv is called $PROJECT_NAME. This virtual env contains celery, django, python3 as default and all other requirements. Virtual envs made with virtuaenvlwrapper will be put at:
 ```sh
-	$HOME/Env/
+$HOME/Env/
 ```
 
 Another file is the uWSGI configuration and inicialization file. When editing, make sure to define base directory used (project folder), uid (whoami) and project name.
@@ -34,7 +34,7 @@ Next one is a uwsgi unit file to run server. Make sure to edit user who is runni
 
 Other observations:
 	After running the script you might need to access it again by doing:
-```python
+```sh
 mkvirtualenv $PROJECT_NAME
 workon $PROJECT_NAME
 ```	

@@ -126,7 +126,7 @@ fi
     pip3 install flower
     pip3 freeze > ${PROJECT_NAME}_requirements.txt  
 
-    sudo rabbitmq-server -detached
+    deactivate
 
 
     # sudo rabbitmqctl add_user $USER 'hexgis2017'
