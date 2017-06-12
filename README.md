@@ -2,7 +2,7 @@
 # About 
 Project as a guide with easy installing and manually configuring tutorial for Celery and RabbitMQ.
 
-About the NGINX and uWSGI tutorial and notes, refer to: [install_server]()
+About the NGINX and uWSGI tutorial and notes, refer to: [install_server](https://github.com/alaisgomes/celery_template/tree/master/install_server)
 
 ## Requirements
 	* Python 3.5.* and pip are already installed
