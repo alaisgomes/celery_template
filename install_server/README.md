@@ -12,7 +12,7 @@ Where _<project_name>_ should be the name of your project. This is needed in ord
 
 First file created
 ```sh	
-$PROJECT_NAME
+/etc/nginx/sites-available/$PROJECT_NAME
 ```
 Edit this file to configurate root project and its _<project_name>.sock_. If creating a new file, make sure to create its link:
 ```sh
